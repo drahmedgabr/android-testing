@@ -3,11 +3,16 @@ package com.example.android.architecture.blueprints.todoapp.data.source
 import androidx.lifecycle.LiveData
 import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Task
+import kotlinx.coroutines.runBlocking
 
 class FakeTasksRepository : TasksRepository {
 
+    var linkedHashMap: LinkedHashMap<String, Task> = LinkedHashMap()
+
     override suspend fun getTasks(forceUpdate: Boolean): Result<List<Task>> {
-        TODO("Not yet implemented")
+        return Result.Success(
+                linkedHashMap.values.toList()
+        )
     }
 
     override suspend fun refreshTasks() {
@@ -60,5 +65,12 @@ class FakeTasksRepository : TasksRepository {
 
     override suspend fun deleteTask(taskId: String) {
         TODO("Not yet implemented")
+    }
+
+    fun addTasks(vararg tasks: Task){
+        for(task in tasks){
+            linkedHashMap[task.id] = task
+        }
+       // runBlocking { refreshTasks() }
     }
 }

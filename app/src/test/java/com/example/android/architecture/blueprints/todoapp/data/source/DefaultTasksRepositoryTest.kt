@@ -1,5 +1,6 @@
 package com.example.android.architecture.blueprints.todoapp.data.source
 
+import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
@@ -35,7 +36,7 @@ class DefaultTasksRepositoryTest {
     @Test
     fun newTest() = runTest {
         val tasks =
-            tasksRepository.getTasks(true) as com.example.android.architecture.blueprints.todoapp.data.Result.Success
+            tasksRepository.getTasks(true) as Result.Success
 
         assertThat(tasks.data, IsEqual(remoteTasks))
     }
