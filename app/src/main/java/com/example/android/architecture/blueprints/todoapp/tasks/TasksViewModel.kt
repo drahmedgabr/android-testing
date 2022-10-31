@@ -16,10 +16,12 @@
 package com.example.android.architecture.blueprints.todoapp.tasks
 
 import android.app.Application
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.example.android.architecture.blueprints.todoapp.Event
+import com.example.android.architecture.blueprints.todoapp.LoggerE
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Result.Success
@@ -146,8 +148,10 @@ class TasksViewModel(private val tasksRepository: TasksRepository) : ViewModel()
     }
 
     fun completeTask(task: Task, completed: Boolean) = viewModelScope.launch {
+        Log.e("Before", task.toString())
         if (completed) {
             tasksRepository.completeTask(task)
+            Log.e("completed", task.toString())
             showSnackbarMessage(R.string.task_marked_complete)
         } else {
             tasksRepository.activateTask(task)
